@@ -7,22 +7,18 @@ use App\Http\Requests\Post\StorePostRequest;
 use App\Http\Requests\Post\UpdatePostRequest;
 use App\Models\Post;
 use App\Repositories\Post\PostRepositoryInterface;
-use App\Services\TestService;
 use App\Traits\TestTrait;
 
 class PostController extends Controller
 {
     use TestTrait;
     private $postRepository;
-    private $testService;
 
     public function __construct(
         PostRepositoryInterface $postRepository,
-        TestService $testService
     )
     {
         $this->postRepository = $postRepository;
-        $this->testService = $testService;
     }
 
     /**
@@ -31,11 +27,9 @@ class PostController extends Controller
     public function index()
     {
         $data = $this->postRepository->getAll();
-        $test = $this->testService->test();
         $trait = $this->testAl();
         return view('Post.index', [
             'data' => $data,
-            'test' => $test,
             'trait' => $trait
         ]);
     }
